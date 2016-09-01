@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Diagnostics;
+
+using Encoder.Controls;
 namespace Encoder
 {
     /// <summary>
@@ -23,11 +25,20 @@ namespace Encoder
         public MainWindow()
         {
             InitializeComponent();
+            // Startup
+            Controls.Startup start = new Controls.Startup();
+            start.Main();
+            //this.DataContext = new Controls.FrameRate();
+            //Controls.FPS fps = new Controls.FPS();
+            //DataContext = fps.test();
+            //Controls.FrameRate class2 = new Controls.FrameRate(this);
         }
 
         // toggle Flyout
         private void toggleFlyoutVideo(object sender, RoutedEventArgs e)
         {
+            //FrameRate fps = new FrameRate();
+            //Console.WriteLine(FrameRate.FPS_Selected);
             if (Setting_Video_Flyout.IsOpen == true)
             { Setting_Video_Flyout.IsOpen = false; }
             else

@@ -1,10 +1,11 @@
-﻿<Controls:MetroWindow x:Class="Encoder.MainWindow"
+﻿<Controls:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Encoder"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Controls1="clr-namespace:Encoder.Controls" x:Class="Encoder.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="300"
@@ -17,9 +18,9 @@
     <!-- Right Windows Command -->
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button x:Name="flyoutVideo" Content="Video" Click="toggleFlyoutVideo"></Button>
-            <Button x:Name="flyoutAudio" Content="Audio" Click="toggleFlyoutAudio"></Button>
-            <Button x:Name="flyoutSetting" Content="Setting" Click="toggleFlyoutPath"></Button>
+            <Button x:Name="flyoutVideo" Content="Video" Click="toggleFlyoutVideo"/>
+            <Button x:Name="flyoutAudio" Content="Audio" Click="toggleFlyoutAudio"/>
+            <Button x:Name="flyoutSetting" Content="Setting" Click="toggleFlyoutPath"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
 
@@ -41,6 +42,7 @@
                         <ColumnDefinition Width="207"/>
                         <ColumnDefinition Width="208"/>
                     </Grid.ColumnDefinitions>
+                    <!-- -->
                     <!-- Input file and Label -->
                     <TextBox x:Name="Encode_Video" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" Margin="30,25,-10,0" Grid.Column="1" Height="26" MouseDoubleClick="_Openfile_Video" />
                     <TextBox x:Name="Encode_Sub1" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="30,25,0,0" Grid.Column="1" Grid.Row="1" Height="26" MouseDoubleClick="_Openfile_Ass"/>
@@ -50,7 +52,6 @@
                     <Label Content="Input Video" HorizontalAlignment="Left" Margin="55,25,0,0" Width="100" Grid.ColumnSpan="2"/>
                     <Label Content="Input Subtitle" HorizontalAlignment="Left" Margin="55,23,0,2" Width="100" Grid.Row="1" Grid.ColumnSpan="2"/>
                     <Label Content="Output Video" HorizontalAlignment="Left" Margin="55,23,0,2" Width="100" Grid.Row="2" Grid.ColumnSpan="2"/>
-                    <!-- -->
                 </Grid>
             </TabItem>
             <TabItem Header="Append"/>
@@ -58,16 +59,37 @@
         <!-- Fly Out -->
         <!--<Controls:MetroWindow.Flyouts>-->
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="Setting_Video_Flyout" Header="Video" Position="Right" Width="800" IsOpen="True">
+            <Controls:Flyout x:Name="Setting_Video_Flyout" Header="Video" Position="Right" Width="800" IsOpen="False">
                 <Grid>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="120" VerticalAlignment="Top" Width="190" Margin="35,0,0,0">
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="190" Margin="35,0,0,0">
                         <Grid>
-                            <Label Content="Mode"/>
-                            <Label Content="Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,48,0,0"/>
+                            <Label Content="Mode :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <Label Content="Bit : " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,45,0,0"/>
+                            <RadioButton x:Name="radioButton" Content="ABR" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,14,0,0" GroupName="Video_Mode"/>
+                            <RadioButton x:Name="radioButton1" Content="CRF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,14,0,0" GroupName="Video_Mode"/>
+                            <RadioButton x:Name="radioButton2" Content="8 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,49,0,0" GroupName="Video_Bit"/>
+                            <RadioButton x:Name="radioButton3" Content="10 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,49,0,0" GroupName="Video_Bit"/>
                         </Grid>
                     </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="255" Margin="302,0,0,0">
+                        <Grid>
+                            <Label Content="Bitrate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <Label Content="Q :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <Label Content="Framerate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,45,0,0"/>
+                            <Label Content="Preset :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,80,0,0"/>
+                            <Label Content="Resize :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,115,0,0"/>
 
+                            <Controls:NumericUpDown Minimum="1000" Maximum="5000" Interval="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,10,0,0" Width="161"/>
+                            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,115,0,0"/>
+                            <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,80,0,0"/>
+                            <ComboBox IsSynchronizedWithCurrentItem="True" x:Name="FPS" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,45,0,0" ItemsSource="{Binding FPS}" SelectedItem="{Binding FPS_Selected}">
+                                <ComboBox.DataContext>
+                                    <Controls1:FrameRate/>
+                                </ComboBox.DataContext>
+                            </ComboBox>
 
+                        </Grid>
+                    </Border>
                 </Grid>
             </Controls:Flyout>
             <Controls:Flyout x:Name="Setting_Audio_Flyout" Header="Audio" Position="Right" Width="800" IsOpen="False">
