@@ -69,6 +69,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\Theme.cs" />
     <Compile Include="Controls\Dialog.cs" />
     <Compile Include="Controls\FrameRate.cs" />
     <Compile Include="Controls\Startup.cs" />
