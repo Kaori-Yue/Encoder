@@ -11,7 +11,11 @@ namespace Encoder.Controls
         public void Main()
         {
             //
-            CurrentTheme();
+            //CurrentTheme();
+            
+            Controls.Config config = new Controls.Config();
+            Controls.Theme theme = new Controls.Theme();
+            //theme.Accents_Selected = config.getXML("Theme", "Accent");
         }
 
         void CheckFile()

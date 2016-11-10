@@ -28,6 +28,8 @@ namespace Encoder
             // Startup
             Controls.Startup start = new Controls.Startup();
             start.Main();
+
+
             //this.DataContext = new Controls.FrameRate();
             //Controls.FPS fps = new Controls.FPS();
             //DataContext = fps.test();
@@ -38,6 +40,11 @@ namespace Encoder
         private void toggleFlyoutVideo(object sender, RoutedEventArgs e)
         {
             //FrameRate fps = new FrameRate();
+            //var obj = sender as Button;
+            /*
+            Button obj = sender as Button;
+            Console.WriteLine(obj.Name);
+            */
             //Console.WriteLine(FrameRate.FPS_Selected);
             if (Setting_Video_Flyout.IsOpen == true)
             { Setting_Video_Flyout.IsOpen = false; }

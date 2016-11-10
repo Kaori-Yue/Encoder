@@ -15,6 +15,8 @@
         EnableDWMDropShadow="False"
         ResizeMode="CanMinimize"
         ShowIconOnTitleBar="False">
+    <!-- GlowBrush="{DynamicResource AccentColorBrush}"  -->
+    
     <!-- Right Windows Command -->
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -59,7 +61,7 @@
         <!-- Fly Out -->
         <!--<Controls:MetroWindow.Flyouts>-->
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="Setting_Video_Flyout" Header="Video" Position="Right" Width="800" IsOpen="False">
+            <Controls:Flyout x:Name="Setting_Video_Flyout" Header="Video" Position="Right" Width="800" IsOpen="True">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="190" Margin="35,0,0,0">
                         <Grid>
@@ -67,7 +69,7 @@
                             <Label Content="Bit : " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,45,0,0"/>
                             <RadioButton x:Name="radioButton" Content="ABR" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,14,0,0" GroupName="Video_Mode"/>
                             <RadioButton x:Name="radioButton1" Content="CRF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,14,0,0" GroupName="Video_Mode"/>
-                            <RadioButton x:Name="radioButton2" Content="8 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,49,0,0" GroupName="Video_Bit"/>
+                            <RadioButton x:Name="radioButton2" Content="8 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,49,0,0" GroupName="Video_Bit" />
                             <RadioButton x:Name="radioButton3" Content="10 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,49,0,0" GroupName="Video_Bit"/>
                         </Grid>
                     </Border>
@@ -79,12 +81,20 @@
                             <Label Content="Preset :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,80,0,0"/>
                             <Label Content="Resize :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,115,0,0"/>
 
-                            <Controls:NumericUpDown Minimum="1000" Maximum="5000" Interval="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,10,0,0" Width="161"/>
-                            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,115,0,0"/>
-                            <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,80,0,0"/>
+                            <Controls:NumericUpDown Minimum="1000" Maximum="5000" Interval="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,10,0,0" Width="161" HorizontalContentAlignment="Center"/>
+                            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,115,0,0" ItemsSource="{Binding Resize}" SelectedItem="{Binding Resize_Selected}">
+                                <ComboBox.DataContext>
+                                    <Controls1:Encode/>
+                                </ComboBox.DataContext>
+                            </ComboBox>
+                            <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,80,0,0" ItemsSource="{Binding Preset}" SelectedItem="{Binding Preset_Selected}">
+                                <ComboBox.DataContext>
+                                    <Controls1:Encode/>
+                                </ComboBox.DataContext>
+                            </ComboBox>
                             <ComboBox IsSynchronizedWithCurrentItem="True" x:Name="FPS" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,45,0,0" ItemsSource="{Binding FPS}" SelectedItem="{Binding FPS_Selected}">
                                 <ComboBox.DataContext>
-                                    <Controls1:FrameRate/>
+                                    <Controls1:Encode/>
                                 </ComboBox.DataContext>
                             </ComboBox>
 
@@ -93,15 +103,36 @@
                 </Grid>
             </Controls:Flyout>
             <Controls:Flyout x:Name="Setting_Audio_Flyout" Header="Audio" Position="Right" Width="800" IsOpen="False">
-                <!-- Your custom content here -->
+                <Grid>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="190" Margin="35,0,0,0">
+                        <Grid>
+                            <Label Content="Encoder :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <RadioButton x:Name="aac" Content="AAC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,14,0,0" GroupName="Audio_Mode"/>
+                            <RadioButton x:Name="flac" Content="FLAC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,14,0,0" GroupName="Audio_Mode"/>
+                        </Grid>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="285" Margin="302,0,0,0">
+                        <Grid>
+                            <Label Content="Bitrate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <Label Content="Sampling rate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,45,0,0"/>
+
+                            <Controls:NumericUpDown Minimum="128" Maximum="320" Interval="64" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,10,0,0" Width="161" HorizontalContentAlignment="Center"/>
+                            <Controls:NumericUpDown Minimum="44100" Maximum="48000" Interval="3900" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,45,0,0" Width="161" HorizontalContentAlignment="Center" Value="{Binding SR}">
+                                <Controls:NumericUpDown.DataContext>
+                                    <Controls1:Encode/>
+                                </Controls:NumericUpDown.DataContext>
+                            </Controls:NumericUpDown>
+                        </Grid>
+                    </Border>
+                </Grid>
             </Controls:Flyout>
-            <Controls:Flyout x:Name="Setting_Path_Flyout" Header="Path" Position="Right" Width="800" IsOpen="True">
+            <Controls:Flyout x:Name="Setting_Path_Flyout" Header="Path" Position="Right" Width="800" IsOpen="False">
                 <!-- Your custom content here -->
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="190" Margin="35,0,0,0">
                         <Grid>
                             <Label Content="Color :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
-                            <ComboBox x:Name="Theme_Select" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="49,10,0,0" ItemsSource="{Binding Accents}">
+                            <ComboBox x:Name="Theme_Select" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="49,10,0,0" ItemsSource="{Binding Accents, Mode=OneTime}" SelectedItem="{Binding Accents_Selected, Mode=TwoWay}">
                                 <ComboBox.DataContext>
                                     <Controls1:Theme/>
                                 </ComboBox.DataContext>
