@@ -70,7 +70,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\API.cs" />
+    <Compile Include="Controls\Command.cs" />
     <Compile Include="Controls\Config.cs" />
+    <Compile Include="Controls\Path.cs" />
     <Compile Include="Controls\Theme.cs" />
     <Compile Include="Controls\Dialog.cs" />
     <Compile Include="Controls\Encode.cs" />

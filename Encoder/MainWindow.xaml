@@ -16,7 +16,7 @@
         ResizeMode="CanMinimize"
         ShowIconOnTitleBar="False">
     <!-- GlowBrush="{DynamicResource AccentColorBrush}"  -->
-    
+
     <!-- Right Windows Command -->
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -26,10 +26,14 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
 
+
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="Normal" ProgressValue="0"></TaskbarItemInfo>
+    </Window.TaskbarItemInfo>
     <Grid>
 
         <!-- Body -->
-        <TabControl HorizontalAlignment="Center" VerticalAlignment="Top" Height="45" Width="798" Margin="-11,0,7,0">
+        <TabControl HorizontalAlignment="Center" VerticalAlignment="Top" Height="45" Width="798" Margin="5,0,-9,0">
             <TabItem Header="Encode" Width="100">
                 <Grid Margin="-13,0,-13,-225" Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
@@ -46,53 +50,104 @@
                     </Grid.ColumnDefinitions>
                     <!-- -->
                     <!-- Input file and Label -->
-                    <TextBox x:Name="Encode_Video" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" Margin="30,25,-10,0" Grid.Column="1" Height="26" MouseDoubleClick="_Openfile_Video" />
-                    <TextBox x:Name="Encode_Sub1" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="30,25,0,0" Grid.Column="1" Grid.Row="1" Height="26" MouseDoubleClick="_Openfile_Ass"/>
-                    <TextBox x:Name="Encode_Sub2" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="29,25,0,0" Grid.Column="2" Grid.Row="1" Height="26" MouseDoubleClick="_Openfile_Ass"/>
-                    <TextBox x:Name="Encode_Sub3" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="40,25,-10,0" Grid.Column="3" Grid.Row="1" Height="26" MouseDoubleClick="_Openfile_Ass"/>
-                    <TextBox x:Name="Encode_Output" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" Margin="30,25,-10,0" Grid.Column="1" Grid.Row="2" Height="26" MouseDoubleClick="_Savefile_Video"/>
+                    <TextBox x:Name="Encode_Video" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" Margin="30,25,-10,0" Grid.Column="1" Height="26" MouseDoubleClick="_Openfile_Video" Text="{Binding Input_Video, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.DataContext>
+                            <Controls1:Encode/>
+                        </TextBox.DataContext>
+                    </TextBox>
+                    <TextBox x:Name="Encode_Sub1" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="30,25,0,0" Grid.Column="1" Grid.Row="1" Height="26" MouseDoubleClick="_Openfile_Ass" Text="{Binding Input_Subtitle1}">
+                        <TextBox.DataContext>
+                            <Controls1:Encode/>
+                        </TextBox.DataContext>
+                    </TextBox>
+                    <TextBox x:Name="Encode_Sub2" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="29,25,0,0" Grid.Column="2" Grid.Row="1" Height="26" MouseDoubleClick="_Openfile_Ass" Text="{Binding Input_Subtitle2}">
+                        <TextBox.DataContext>
+                            <Controls1:Encode/>
+                        </TextBox.DataContext>
+                    </TextBox>
+                    <TextBox x:Name="Encode_Sub3" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="40,25,-10,0" Grid.Column="3" Grid.Row="1" Height="26" MouseDoubleClick="_Openfile_Ass" Text="{Binding Input_Subtitle3}">
+                        <TextBox.DataContext>
+                            <Controls1:Encode/>
+                        </TextBox.DataContext>
+                    </TextBox>
+                    <TextBox x:Name="Encode_Output" Controls:TextBoxHelper.Watermark="Click Video" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" Margin="30,25,-10,0" Grid.Column="1" Grid.Row="2" Height="26" MouseDoubleClick="_Savefile_Video" Text="{Binding Output_Video}">
+                        <TextBox.DataContext>
+                            <Controls1:Encode/>
+                        </TextBox.DataContext>
+                    </TextBox>
                     <Label Content="Input Video" HorizontalAlignment="Left" Margin="55,25,0,0" Width="100" Grid.ColumnSpan="2"/>
                     <Label Content="Input Subtitle" HorizontalAlignment="Left" Margin="55,23,0,2" Width="100" Grid.Row="1" Grid.ColumnSpan="2"/>
                     <Label Content="Output Video" HorizontalAlignment="Left" Margin="55,23,0,2" Width="100" Grid.Row="2" Grid.ColumnSpan="2"/>
+                    <Button x:Name="Encode_bt" Content="Encode" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="3" Margin="160,37,-26,-6" Grid.Row="3" MouseDoubleClick="Encode_bt_MouseDoubleClick" Click="Encode_bt_Click" />
+                    <!-- <ProgressBar x:Name="progress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="660" Margin="25,38,0,-6" Value="-1" Height="25" Grid.Row="3" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="4">
+                    </ProgressBar>-->
+                    <Label x:Name="label" Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,12,0,0" Grid.Row="3" FontWeight="Bold"/>
+                    <Label x:Name="status" Content="Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="73,12,0,0" Grid.Row="3" Grid.ColumnSpan="4" Width="612"/>
+                    <Controls:MetroProgressBar x:Name="progress" Value="20" HorizontalAlignment="Left" VerticalAlignment="Top" Width="660" Margin="25,38,0,-6" Height="25" Grid.Row="3" Grid.ColumnSpan="4" IsHitTestVisible="True" BorderThickness="0" Foreground="#FF8DFF74" Background="#1F000000" />
                 </Grid>
             </TabItem>
-            <TabItem Header="Append"/>
+            <!-- <TabItem Header="Append"/> Out -->
         </TabControl>
         <!-- Fly Out -->
         <!--<Controls:MetroWindow.Flyouts>-->
         <Controls:FlyoutsControl>
-            <Controls:Flyout x:Name="Setting_Video_Flyout" Header="Video" Position="Right" Width="800" IsOpen="True">
+            <Controls:Flyout x:Name="Setting_Video_Flyout" Header="Video" Position="Right" Width="800" IsOpen="False">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="190" Margin="35,0,0,0">
                         <Grid>
                             <Label Content="Mode :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
                             <Label Content="Bit : " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,45,0,0"/>
-                            <RadioButton x:Name="radioButton" Content="ABR" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,14,0,0" GroupName="Video_Mode"/>
-                            <RadioButton x:Name="radioButton1" Content="CRF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,14,0,0" GroupName="Video_Mode"/>
-                            <RadioButton x:Name="radioButton2" Content="8 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,49,0,0" GroupName="Video_Bit" />
-                            <RadioButton x:Name="radioButton3" Content="10 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,49,0,0" GroupName="Video_Bit"/>
+                            <RadioButton x:Name="Video_ABR" Content="ABR" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,14,0,0" GroupName="Video_Mode" IsChecked="{Binding ABR}" Checked="Video_ABR_Checked">
+                                <RadioButton.DataContext>
+                                    <Controls1:Encode/>
+                                </RadioButton.DataContext>
+                            </RadioButton>
+                            <RadioButton x:Name="Video_CRF" Content="CRF" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,14,0,0" GroupName="Video_Mode" IsChecked="{Binding CRF}" Checked="Video_CRF_Checked">
+                                <RadioButton.DataContext>
+                                    <Controls1:Encode/>
+                                </RadioButton.DataContext>
+                            </RadioButton>
+                            <RadioButton x:Name="radioButton2" Content="8 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,49,0,0" GroupName="Video_Bit" IsChecked="{Binding Bit8}">
+                                <RadioButton.DataContext>
+                                    <Controls1:Encode/>
+                                </RadioButton.DataContext>
+                            </RadioButton>
+                            <RadioButton x:Name="radioButton3" Content="10 Bit" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,49,0,0" GroupName="Video_Bit" IsChecked="{Binding Bit10}">
+                                <RadioButton.DataContext>
+                                    <Controls1:Encode/>
+                                </RadioButton.DataContext>
+                            </RadioButton>
                         </Grid>
                     </Border>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="255" Margin="302,0,0,0">
                         <Grid>
-                            <Label Content="Bitrate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
-                            <Label Content="Q :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <Label x:Name="bitrate_label" Content="Bitrate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <Label x:Name="quality_label" Content="Quality :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
                             <Label Content="Framerate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,45,0,0"/>
                             <Label Content="Preset :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,80,0,0"/>
                             <Label Content="Resize :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,115,0,0"/>
 
-                            <Controls:NumericUpDown Minimum="1000" Maximum="5000" Interval="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,10,0,0" Width="161" HorizontalContentAlignment="Center"/>
-                            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,115,0,0" ItemsSource="{Binding Resize}" SelectedItem="{Binding Resize_Selected}">
+                            <Controls:NumericUpDown x:Name="bitrate_cb" Minimum="1000" Maximum="5000" Interval="100" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,10,0,0" Width="161" HorizontalContentAlignment="Center" Value="{Binding Bitrate_Video}">
+                                <Controls:NumericUpDown.DataContext>
+                                    <Controls1:Encode/>
+                                </Controls:NumericUpDown.DataContext>
+                            </Controls:NumericUpDown>
+                            <Controls:NumericUpDown x:Name="quality_cb" Minimum="16" Maximum="26" Interval="0.1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="74,10,0,0" Width="161" HorizontalContentAlignment="Center" Value="{Binding Quality_Video}" StringFormat="{}{0:F1}">
+                                <Controls:NumericUpDown.DataContext>
+                                    <Controls1:Encode/>
+                                </Controls:NumericUpDown.DataContext>
+                            </Controls:NumericUpDown>
+                            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,115,0,0" HorizontalContentAlignment="Center" ItemsSource="{Binding Resize, Mode=OneTime}" SelectedItem="{Binding Resize_Selected}">
                                 <ComboBox.DataContext>
                                     <Controls1:Encode/>
                                 </ComboBox.DataContext>
                             </ComboBox>
-                            <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,80,0,0" ItemsSource="{Binding Preset}" SelectedItem="{Binding Preset_Selected}">
+                            <ComboBox x:Name="comboBox2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,80,0,0" HorizontalContentAlignment="Center" ItemsSource="{Binding Preset, Mode=OneTime}" SelectedItem="{Binding Preset_Selected}">
                                 <ComboBox.DataContext>
                                     <Controls1:Encode/>
                                 </ComboBox.DataContext>
                             </ComboBox>
-                            <ComboBox IsSynchronizedWithCurrentItem="True" x:Name="FPS" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,45,0,0" ItemsSource="{Binding FPS}" SelectedItem="{Binding FPS_Selected}">
+                            <ComboBox IsSynchronizedWithCurrentItem="True" x:Name="FPS" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="74,45,0,0" HorizontalContentAlignment="Center" ItemsSource="{Binding FPS, Mode=OneTime}" SelectedItem="{Binding FPS_Selected}">
                                 <ComboBox.DataContext>
                                     <Controls1:Encode/>
                                 </ComboBox.DataContext>
@@ -116,7 +171,11 @@
                             <Label Content="Bitrate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
                             <Label Content="Sampling rate :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,45,0,0"/>
 
-                            <Controls:NumericUpDown Minimum="128" Maximum="320" Interval="64" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,10,0,0" Width="161" HorizontalContentAlignment="Center"/>
+                            <Controls:NumericUpDown Minimum="128" Maximum="320" Interval="64" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,10,0,0" Width="161" HorizontalContentAlignment="Center" Value="{Binding Bitrate_Audio}">
+                                <Controls:NumericUpDown.DataContext>
+                                    <Controls1:Encode/>
+                                </Controls:NumericUpDown.DataContext>
+                            </Controls:NumericUpDown>
                             <Controls:NumericUpDown Minimum="44100" Maximum="48000" Interval="3900" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="105,45,0,0" Width="161" HorizontalContentAlignment="Center" Value="{Binding SR}">
                                 <Controls:NumericUpDown.DataContext>
                                     <Controls1:Encode/>
@@ -132,7 +191,7 @@
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" VerticalAlignment="Top" Width="190" Margin="35,0,0,0">
                         <Grid>
                             <Label Content="Color :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
-                            <ComboBox x:Name="Theme_Select" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="49,10,0,0" ItemsSource="{Binding Accents, Mode=OneTime}" SelectedItem="{Binding Accents_Selected, Mode=TwoWay}">
+                            <ComboBox x:Name="Theme_Select" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="49,10,0,0" ItemsSource="{Binding Accents, Mode=OneTime}" SelectedItem="{Binding Accents_Selected}">
                                 <ComboBox.DataContext>
                                     <Controls1:Theme/>
                                 </ComboBox.DataContext>
@@ -140,8 +199,15 @@
                         </Grid>
                     </Border>
 
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="255" Margin="302,0,0,0">
-                        <Grid/>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Width="345" Margin="302,0,0,0">
+                        <Grid>
+                            <Label Content="MeGUI :" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <TextBox x:Name="MeGUI" Controls:TextBoxHelper.Watermark="MeGUI" Controls:TextBoxHelper.ClearTextButton="True" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="26" HorizontalAlignment="Right" Margin="0,10,10,112" Width="275" MouseDoubleClick="MeGUI_MouseDoubleClick" Text="{Binding MeGUI}">
+                                <TextBox.DataContext>
+                                    <Controls1:Encode/>
+                                </TextBox.DataContext>
+                            </TextBox>
+                        </Grid>
                     </Border>
                 </Grid>
             </Controls:Flyout>

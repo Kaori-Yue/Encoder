@@ -49,16 +49,30 @@ namespace Encoder.Controls
                 if (_Accents_Selected == null)
                 {
                     Controls.Config conf = new Controls.Config();
+                    //string temp = conf.xml;
+                    //System.Windows.MessageBox.Show(conf.aa.Element("Theme").Element("Accent").Value);
                     string accent = conf.Accent;
-                    if (accent == null)
+                    if (accent != null && accent != "")
                     {
-                        MahApps.Metro.ThemeManager.ChangeAppStyle(System.Windows.Application.Current, MahApps.Metro.ThemeManager.GetAccent(accent), MahApps.Metro.ThemeManager.GetAppTheme("BaseLight"));
-                        return accent;
+                        try
+                        {
+                            MahApps.Metro.ThemeManager.ChangeAppStyle(System.Windows.Application.Current, MahApps.Metro.ThemeManager.GetAccent(accent), MahApps.Metro.ThemeManager.GetAppTheme("BaseLight"));
+                            return accent;
+                        }
+                        catch
+                        {
+                            System.Windows.MessageBox.Show("Theme->Accent not color", "Accent parse error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Asterisk);
+                            string color = "Blue";
+                            MahApps.Metro.ThemeManager.ChangeAppStyle(System.Windows.Application.Current, MahApps.Metro.ThemeManager.GetAccent(color), MahApps.Metro.ThemeManager.GetAppTheme("BaseLight"));
+                            return color;
+                        }
+                        
                     }
                     else
                     {
-                        MahApps.Metro.ThemeManager.ChangeAppStyle(System.Windows.Application.Current, MahApps.Metro.ThemeManager.GetAccent("Blue"), MahApps.Metro.ThemeManager.GetAppTheme("BaseLight"));
-                        return "Blue";
+                        string color = "Blue";
+                        MahApps.Metro.ThemeManager.ChangeAppStyle(System.Windows.Application.Current, MahApps.Metro.ThemeManager.GetAccent(color), MahApps.Metro.ThemeManager.GetAppTheme("BaseLight"));
+                        return color;
                     }
                 }
                 else
@@ -89,6 +103,8 @@ namespace Encoder.Controls
         */
             set
             {
+                //foreach (var i in MahApps.Metro.ThemeManager.Accents) { Console.WriteLine(i.Resources.Source); }
+                //Console.WriteLine(MahApps.Metro.ThemeManager.GetAccent(value).Resources.Keys.);
                 _Accents_Selected = value;
                 MahApps.Metro.ThemeManager.ChangeAppStyle(System.Windows.Application.Current, MahApps.Metro.ThemeManager.GetAccent(value), MahApps.Metro.ThemeManager.GetAppTheme("BaseLight"));
             }

@@ -15,6 +15,7 @@ namespace Encoder.Controls
             
             Controls.Config config = new Controls.Config();
             Controls.Theme theme = new Controls.Theme();
+            //config.LoadFile();
             //theme.Accents_Selected = config.getXML("Theme", "Accent");
         }
 
