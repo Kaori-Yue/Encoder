@@ -26,8 +26,8 @@ namespace Encoder.Controls
                             new XElement("CRF"),
                             new XElement("Bitrate"),
                             new XElement("Quality"),
-                            new XElement("8Bit"),
-                            new XElement("10Bit"),
+                            new XElement("Bit8"), // 8Bit > Bit8 [ XML Can't start with number ]
+                            new XElement("Bit10"),
                             new XElement("Framerate"),
                             new XElement("Preset"),
                             new XElement("Resize")

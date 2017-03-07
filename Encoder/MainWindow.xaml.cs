@@ -416,7 +416,9 @@ namespace Encoder
             System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" + System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".264");
             System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" + System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".m4a");
             System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" + System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".stats");
-            System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" +  System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".stats.mbtree");
+            System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" + System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".stat");
+            System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" + System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".stats.mbtree");
+            System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" + System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".stat.mbtree");
             //
             System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" + System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".stats.mbtree.temp");
             System.IO.File.Delete(AppDomain.CurrentDomain.BaseDirectory + "Temporary\\" + System.IO.Path.GetFileNameWithoutExtension(api.Input_Video) + ".stats.temp");

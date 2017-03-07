@@ -213,7 +213,7 @@ namespace Encoder.Controls
                 {
                     try
                     {
-                        _Bit8 = xml("Video", "8Bit");
+                        _Bit8 = xml("Video", "Bit8");
                         return bool.Parse(_Bit8);
                     }
                     catch
@@ -241,7 +241,7 @@ namespace Encoder.Controls
                 {
                     try
                     {
-                        _Bit10 = xml("Video", "CRF");
+                        _Bit10 = xml("Video", "Bit10");
                         return bool.Parse(_Bit10);
                     }
                     catch

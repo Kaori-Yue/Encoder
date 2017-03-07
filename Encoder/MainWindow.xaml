@@ -83,7 +83,7 @@
                     </ProgressBar>-->
                     <Label x:Name="label" Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,12,0,0" Grid.Row="3" FontWeight="Bold"/>
                     <Label x:Name="status" Content="Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="73,12,0,0" Grid.Row="3" Grid.ColumnSpan="4" Width="612"/>
-                    <Controls:MetroProgressBar x:Name="progress" Value="20" HorizontalAlignment="Left" VerticalAlignment="Top" Width="660" Margin="25,38,0,-6" Height="25" Grid.Row="3" Grid.ColumnSpan="4" IsHitTestVisible="True" BorderThickness="0" Foreground="#FF8DFF74" Background="#1F000000" />
+                    <Controls:MetroProgressBar x:Name="progress" Value="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="660" Margin="25,38,0,-6" Height="25" Grid.Row="3" Grid.ColumnSpan="4" IsHitTestVisible="True" BorderThickness="0" Foreground="#FF8DFF74" Background="#1F000000" />
                 </Grid>
             </TabItem>
             <!-- <TabItem Header="Append"/> Out -->
